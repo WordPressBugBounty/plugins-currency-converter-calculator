@@ -2,7 +2,7 @@
 Contributors: falselight
 Tags: currency converter, currency conversion, currency calculator, foreign exchange conversion, forex
 Donate link: http://currencyrate.today/converter-widget
-Tested up to: 6.6
+Tested up to: 6.7
 Requires at least: 3.1
 Requires PHP: 5.3
 Stable tag: 1.3.2
