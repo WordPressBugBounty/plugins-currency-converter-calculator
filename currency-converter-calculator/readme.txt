@@ -5,7 +5,7 @@ Donate link: http://currencyrate.today/converter-widget
 Tested up to: 6.7
 Requires at least: 3.1
 Requires PHP: 5.3
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,9 +14,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == 📌 About ==
 Simple and powerful real-time Currency Converter widget for your website or blog. Included 195+ world currencies with popular cryptocurrencies. Automatically update exchange rates. Multi Language support: English, Русский, Italiano, Français, Español, Deutsch, 中国, Português, 日本語, Bahasa Indonesia, हिन्दी.
 
+== 🔔 Note ==
+Note: This plugin is compatible with newer versions of WordPress only when used alongside the [Classic Widgets plugin](https://wordpress.org/plugins/classic-widgets/). Please ensure the Classic Widgets plugin is installed and activated for proper functionality.
+
 [DEMO 1](https://currencyrate.today/converter-widget) 👀
 [DEMO 2](https://codepen.io/currencyrate_today/pen/mdBqOxG) 👀
-📩 Feel free, write if you will have any questions: [Online support](https://t.me/converter_support)
 
 = ⭐️ FEATURES ⭐️ =
 1. 195+ [Currencies](https://currencyrate.today/different-currencies) and Popular [CryptoCurrencies](https://currencyrate.today/other);
@@ -50,7 +52,7 @@ Simple and powerful real-time Currency Converter widget for your website or blog
 = How to install a widget on an arbitrary page? =
 1. You can generate a shortcode manual
 Example:
-[currency_converter_calculator lg="ru" tz="0" fm="EUR" to="USD" st="info" bg="FFFFFF" lr="1" rd="0"][/currency_converter_calculator]
+[ccc_currency_converter_calculator lg="ru" tz="0" fm="EUR" to="USD" st="info" bg="FFFFFF" lr="1" rd="0"][/ccc_currency_converter_calculator]
 Params:
 lg="ru" - languages, use: en, ru, it, fr, es, de, cn, pt, ja, id, hi
 tz="0" - timezone
@@ -88,6 +90,10 @@ hi - हिन्दी
 8. screanshot-7.jpg - Green theme
 
 == Changelog ==
+= 1.4.0 =
+* Fixed security bugs
+* Minor bug fixed
+* Add language POT file
 = 1.3.2 =
 * Fixed security bugs
 * Minor bug fixed
@@ -113,8 +119,6 @@ hi - हिन्दी
 
 == 🍩 Donations ==
 ℹ️ Official website & 💹 Source: [CurrencyRate](https://currencyrate.today/)
-❓ Feel free, write if you will have any questions: [Online support](https://t.me/converter_support)
-💵 Fiat money: [in-English](https://moneyconvert.net/) | [по-русски](https://cur.su/)
 💰 Your might like it:
 🔵 [Exchange Rates Widget](https://wordpress.org/plugins/exchange-rates-widget/)
 🟢 [Crypto Converter ⚡ Widget](https://wordpress.org/plugins/crypto-converter-widget/)
