@@ -2,10 +2,10 @@
 Contributors: falselight
 Tags: currency converter, currency conversion, currency calculator, foreign exchange conversion, forex
 Donate link: http://currencyrate.today/converter-widget
-Tested up to: 6.7
+Tested up to: 6.8
 Requires at least: 3.1
 Requires PHP: 5.3
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,8 @@ hi - हिन्दी
 8. screanshot-7.jpg - Green theme
 
 == Changelog ==
+= 1.4.1 =
+* Minor bug fixed
 = 1.4.0 =
 * Fixed security bugs
 * Minor bug fixed

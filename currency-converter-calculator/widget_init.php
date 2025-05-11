@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @version 1.4.0
+ * @version 1.4.1
  */
 /*
     Plugin Name: Currency Converter Calculator
     Plugin URI: http://currencyrate.today/converter-widget
     Description: Simple and powerful real-time Currency Converter widget for your website or blog. Included <strong>195+ world currencies</strong> with <strong>popular cryptocurrencies</strong>. Automatically update exchange rates. Multi Language support: English, Русский, Italiano, Français, Español, Deutsch, 中国, Português, 日本語, Bahasa Indonesia, हिन्दी.
-    Version: 1.4.0
+    Version: 1.4.1
     Author: CurrencyRate.today
     Author URI: https://currencyrate.today
     License: GPLv2 or later
@@ -20,7 +20,9 @@
 */
 require_once 'functions.php';
 require_once 'languages.php';
-$plugin_version = '1.4.0';
+if ( ! defined( 'CCC_PLUGIN_VERSION' ) ) {
+    define( 'CCC_PLUGIN_VERSION', '1.4.1' );
+}
 
 /*
     Init widget
@@ -33,7 +35,6 @@ add_action('widgets_init', function () {
     Admin enqueue scripts
 */
 add_action('admin_enqueue_scripts', function ($hook) {
-    global $plugin_version;
     if ('widgets.php' != $hook) {
         return;
     }
@@ -41,7 +42,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
         'ccc_jscolor',
         plugin_dir_url(__FILE__) . 'assets/jscolor.min.js',
         array(),
-        $plugin_version,
+        CCC_PLUGIN_VERSION,
         true
     );
 });
@@ -360,12 +361,11 @@ class ccc_currency_converter_calculator extends WP_Widget
     */
     public function widget($args, $instance)
     {
-        global $plugin_version;
         wp_register_style(
             'ccc-currency-converter-calculator',
             plugin_dir_url(__FILE__) . 'assets/frontend.css',
             array(),
-            $plugin_version
+            CCC_PLUGIN_VERSION
         );
         wp_enqueue_style('ccc-currency-converter-calculator');
 

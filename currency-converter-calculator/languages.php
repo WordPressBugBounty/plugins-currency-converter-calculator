@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version 1.4.0
+ * @version 1.4.1
  */
 
 function ccc_widget_language($lg)
