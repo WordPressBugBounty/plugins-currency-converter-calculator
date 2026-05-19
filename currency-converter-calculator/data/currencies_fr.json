@@ -76,6 +76,7 @@
 "DOP":"Peso Dominicain",
 "EAC":"EarthCoin",
 "XCD":"Dollar Des Caraïbes Orientales",
+"XCG":"Florin Des Caraïbes",
 "EMC":"Emercoin",
 "AED":"Émirats Dirham",
 "ERN":"Nakfa Érythréen",
@@ -186,5 +187,6 @@
 "VND":"Dong Vietnamien",
 "YER":"Rial Yéménite",
 "ZMW":"Le Kwacha Zambien",
+"ZWG":"Or Du Zimbabwe",
 "ZWL":"Dollar Zimbabwéen (2009)"
 }

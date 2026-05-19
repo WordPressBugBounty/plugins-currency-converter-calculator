@@ -76,6 +76,7 @@
 "DOP":"Dominican Peso",
 "EAC":"EarthCoin",
 "XCD":"East Caribbean Dollar",
+"XCG":"Caribbean Guilder",
 "EMC":"Emercoin",
 "AED":"Emirati Dirham",
 "ERN":"Eritrean Nakfa",
@@ -186,5 +187,6 @@
 "VND":"Vietnamese Dong",
 "YER":"Yemeni Rial",
 "ZMW":"Zambian Kwacha",
+"ZWG":"Zimbabwe Gold",
 "ZWL":"Zimbabwean Dollar (2009)"
 }

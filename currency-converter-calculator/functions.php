@@ -1,7 +1,11 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * @version 1.4.1
+ * @version 1.4.2
  */
 
 function ccc_return_list_languages()
@@ -23,9 +27,13 @@ function ccc_return_list_languages()
 
 function ccc_wrap_sanitize_text_field($sanitized_value)
 {
+    if (is_array($sanitized_value) || is_object($sanitized_value)) {
+        return '';
+    }
+
+    $sanitized_value = sanitize_text_field((string) $sanitized_value);
     $sanitized_value = preg_replace('/[()]/', '', $sanitized_value);
-    // Escape the attribute value for safe output
-    $escaped_value = esc_attr($sanitized_value);
+
     return $sanitized_value;
 }
 
@@ -38,21 +46,32 @@ function ccc_return_language_detected()
 
 function ccc_return_currency_list()
 {
-    $contents = file_get_contents(plugin_dir_path(__FILE__).'data/currencies_'.ccc_return_language_detected().'.json');
+    $file = plugin_dir_path(__FILE__).'data/currencies_'.ccc_return_language_detected().'.json';
 
-    return json_decode($contents, true);
+    if (!is_readable($file)) {
+        return array();
+    }
+
+    $contents = file_get_contents($file);
+    if (false === $contents) {
+        return array();
+    }
+
+    $currencies = json_decode($contents, true);
+
+    return is_array($currencies) ? $currencies : array();
 }
 
 function ccc_return_iframe($params, $width, $height, $signature = null, $text = null)
 {
-    $target_url = esc_url(strtolower('https://'.$params['fm'].(('en' != $params['lg']) ? '.'.$params['lg'] : '').'.currencyrate.today'.DIRECTORY_SEPARATOR.$params['to']));
+    $target_url = strtolower('https://'.$params['fm'].(('en' != $params['lg']) ? '.'.$params['lg'] : '').'.currencyrate.today/'.$params['to']);
 
     $url = 'https://currencyrate.today/load-converter?'.http_build_query($params);
     $output = '<iframe title="'.(($text) ? esc_attr($text).': CurrencyRate.Today' : 'Currency Converter Widget').'" src="'.esc_url($url).'" height="'.esc_attr($height).'" width="'.esc_attr($width).'" frameborder="0" loading="lazy" scrolling="no" class="ccc-iframe" name="ccc-currency-converter-calculator"></iframe>';
     if ($signature) {
-        $output .= '<p>'.(($text) ? esc_html($text).' ' : '').' <a href="'.$target_url.'" class="ccc-base-currency-link">'.esc_html($params['fm'].'/'.$params['to']).'</a>: '.date_i18n('D, j M', false).'.</p>';
+        $output .= '<p>'.(($text) ? esc_html($text).' ' : '').' <a href="'.esc_url($target_url).'" class="ccc-base-currency-link">'.esc_html($params['fm'].'/'.$params['to']).'</a>: '.date_i18n('D, j M', false).'.</p>';
     } else {
-        $output .= '<p><a href="'.$target_url.'" class="ccc-base-currency-link">CurrencyRate</a></p>';
+        $output .= '<p><a href="'.esc_url($target_url).'" class="ccc-base-currency-link">CurrencyRate</a></p>';
     }
 
     return $output;

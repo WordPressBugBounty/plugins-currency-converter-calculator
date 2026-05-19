@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Currency Converter Calculator 1.4.1\n"
+"Project-Id-Version: Currency Converter Calculator 1.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/currency-converter-calculator\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,12 +22,12 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: widget_init.php
-msgid "http://currencyrate.today/converter-widget"
+msgid "https://currencyrate.today/converter-widget"
 msgstr ""
 
 #. Description of the plugin
 #: widget_init.php
-msgid "Simple and powerful real-time Currency Converter widget for your website or blog. Included <strong>195+ world currencies</strong> with <strong>popular cryptocurrencies</strong>. Automatically update exchange rates. Multi Language support: English, Русский, Italiano, Français, Español, Deutsch, 中国, Português, 日本語, Bahasa Indonesia, हिन्दी."
+msgid "Give visitors a fast, responsive currency converter that keeps them on your site without adding exchange-rate load to WordPress."
 msgstr ""
 
 #. Author of the plugin

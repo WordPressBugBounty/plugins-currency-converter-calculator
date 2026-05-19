@@ -76,6 +76,7 @@
 "DOP":"Peso Dominika",
 "EAC":"EarthCoin",
 "XCD":"Dolar Karibia Timur",
+"XCG":"Guilder Karibia",
 "EMC":"Emercoin",
 "AED":"Dirham Uni Emirat Arab",
 "ERN":"Nakfa Eritrea",
@@ -186,5 +187,6 @@
 "VND":"Dong Vietnam",
 "YER":"Rial Yaman",
 "ZMW":"Kwacha Zambia",
+"ZWG":"Emas Zimbabwe",
 "ZWL":"Dolar Zimbabwe (2009)"
 }

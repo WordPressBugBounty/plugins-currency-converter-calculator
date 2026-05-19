@@ -1,27 +1,34 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * @version 1.4.1
+ * @version 1.4.2
  */
 /*
     Plugin Name: Currency Converter Calculator
-    Plugin URI: http://currencyrate.today/converter-widget
-    Description: Simple and powerful real-time Currency Converter widget for your website or blog. Included <strong>195+ world currencies</strong> with <strong>popular cryptocurrencies</strong>. Automatically update exchange rates. Multi Language support: English, Русский, Italiano, Français, Español, Deutsch, 中国, Português, 日本語, Bahasa Indonesia, हिन्दी.
-    Version: 1.4.1
+    Plugin URI: https://currencyrate.today/converter-widget
+    Description: Give visitors a fast, responsive currency converter that keeps them on your site without adding exchange-rate load to WordPress.
+    Version: 1.4.2
     Author: CurrencyRate.today
     Author URI: https://currencyrate.today
     License: GPLv2 or later
     Text Domain: currency-converter-calculator
     Domain Path: /languages
+    Requires at least: 3.1
+    Requires PHP: 5.3
+    Tested up to: 7.0
 */
 
 /*
     Load functions
 */
-require_once 'functions.php';
-require_once 'languages.php';
+require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/languages.php';
 if ( ! defined( 'CCC_PLUGIN_VERSION' ) ) {
-    define( 'CCC_PLUGIN_VERSION', '1.4.1' );
+    define( 'CCC_PLUGIN_VERSION', '1.4.2' );
 }
 
 /*
@@ -53,7 +60,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
 function callback_ccc_currency_converter_calculator($atts, $content = null)
 {
     $_lg = ccc_return_language_detected();
-    extract(shortcode_atts(array(
+    $atts = shortcode_atts(array(
         'size_width' => '100%',
         'fm' => 'EUR',
         'to' => 'USD',
@@ -63,11 +70,17 @@ function callback_ccc_currency_converter_calculator($atts, $content = null)
         'tz' => 0,
         'lr' => 0,
         'rd' => 0,
-    ), $atts, 'ccc_currency_converter_calculator'));
+    ), (array) $atts, 'ccc_currency_converter_calculator');
 
+    $lg = ccc_wrap_sanitize_text_field($atts['lg']);
     $lg = (empty($lg)) ? $_lg : ((in_array($lg, array_keys(ccc_return_list_languages()))) ? $lg : 'en');
-    $fm = (empty($fm)) ? 'USD' : $fm;
-    $to = (empty($to)) ? 'EUR' : $to;
+    $fm = empty($atts['fm']) ? 'USD' : ccc_wrap_sanitize_text_field($atts['fm']);
+    $to = empty($atts['to']) ? 'EUR' : ccc_wrap_sanitize_text_field($atts['to']);
+    $st = ccc_wrap_sanitize_text_field($atts['st']);
+    $bg = ccc_wrap_sanitize_text_field($atts['bg']);
+    $tz = ccc_wrap_sanitize_text_field($atts['tz']);
+    $lr = ccc_wrap_sanitize_text_field($atts['lr']);
+    $rd = ccc_wrap_sanitize_text_field($atts['rd']);
 
     $height = (1 == $lr) ? 306 : 289;
     $params_build = array(
@@ -82,7 +95,8 @@ function callback_ccc_currency_converter_calculator($atts, $content = null)
       'wp' => 'ccc_sc',
     );
 
-    $size_width = isset($atts['size_width']) ? $atts['size_width'] : '100%';
+    $size_width = ccc_wrap_sanitize_text_field($atts['size_width']);
+    $size_width = ccc_is_valid_size($size_width) ? $size_width : '100%';
     $language = ccc_widget_language(esc_attr($lg));
 
     $output = ccc_return_iframe($params_build, esc_attr($size_width), esc_attr($height), 1, esc_html($language['title']));
@@ -97,6 +111,8 @@ add_shortcode('ccc_currency_converter_calculator', 'callback_ccc_currency_conver
 */
 class ccc_currency_converter_calculator extends WP_Widget
 {
+    private $allowed_tags = array();
+
     /*
         Register widget with WordPress.
     */
@@ -163,6 +179,23 @@ class ccc_currency_converter_calculator extends WP_Widget
     */
     public function update($new_instance, $old_instance)
     {
+        $new_instance = wp_parse_args(
+            (array) $new_instance,
+            array(
+                'fm' => 'EUR',
+                'to' => 'USD',
+                'lg' => ccc_return_language_detected(),
+                'tz' => 0,
+                'st' => 'info',
+                'bg' => 'FFFFFF',
+                'lr' => 0,
+                'rd' => 0,
+                'title' => '',
+                'signature' => 0,
+                'size_width' => '100%',
+            )
+        );
+
         $instance = $old_instance;
 
         $instance['fm'] = ccc_wrap_sanitize_text_field($new_instance['fm']);
@@ -171,11 +204,12 @@ class ccc_currency_converter_calculator extends WP_Widget
         $instance['tz'] = ccc_wrap_sanitize_text_field($new_instance['tz']);
         $instance['st'] = ccc_wrap_sanitize_text_field($new_instance['st']);
         $instance['bg'] = ccc_wrap_sanitize_text_field($new_instance['bg']);
-        $instance['lr'] = ccc_wrap_sanitize_text_field($new_instance['lr']);
-        $instance['rd'] = ccc_wrap_sanitize_text_field($new_instance['rd']);
+        $instance['lr'] = empty($new_instance['lr']) ? 0 : 1;
+        $instance['rd'] = empty($new_instance['rd']) ? 0 : 1;
         $instance['title'] = ccc_wrap_sanitize_text_field($new_instance['title']);
-        $instance['signature'] = ccc_wrap_sanitize_text_field($new_instance['signature']);
+        $instance['signature'] = empty($new_instance['signature']) ? 0 : 1;
         $instance['size_width'] = ccc_wrap_sanitize_text_field($new_instance['size_width']);
+        $instance['size_width'] = ccc_is_valid_size($instance['size_width']) ? $instance['size_width'] : '100%';
 
         return $instance;
     }
@@ -208,9 +242,7 @@ class ccc_currency_converter_calculator extends WP_Widget
             'rd' => 0,
         );
 
-        if (empty($instance)) {
-            $instance = $defaults;
-        }
+        $instance = wp_parse_args((array) $instance, $defaults);
 
         $currency_list = ccc_return_currency_list();
 
@@ -314,17 +346,17 @@ class ccc_currency_converter_calculator extends WP_Widget
         '</select></label></p>';
 
         echo '<p><label for="',esc_attr($this->get_field_id('lr')),'">',
-        '<input type="checkbox" ',checked($lr, 1),' id="',esc_attr($this->get_field_id('lr')),'" name="',esc_attr($this->get_field_name('lr')),'" value="1">',
+        '<input type="checkbox" ',checked($lr, 1, false),' id="',esc_attr($this->get_field_id('lr')),'" name="',esc_attr($this->get_field_name('lr')),'" value="1">',
         esc_html($this->_lang('large')),
         '</label></p>';
 
         echo '<p><label for="',esc_attr($this->get_field_id('rd')),'">',
-        '<input type="checkbox" ',checked($rd, 1),' id="',esc_attr($this->get_field_id('rd')),'" name="',esc_attr($this->get_field_name('rd')),'" value="1">',
+        '<input type="checkbox" ',checked($rd, 1, false),' id="',esc_attr($this->get_field_id('rd')),'" name="',esc_attr($this->get_field_name('rd')),'" value="1">',
         esc_html($this->_lang('straight_corners')),
         '</label></p>';
 
         echo '<p><label for="',esc_attr($this->get_field_id('signature')),'">',
-        '<input type="checkbox" ',checked($signature, 1),' id="',esc_attr($this->get_field_id('signature')),'" name="',esc_attr($this->get_field_name('signature')),'" value="1">',
+        '<input type="checkbox" ',checked($signature, 1, false),' id="',esc_attr($this->get_field_id('signature')),'" name="',esc_attr($this->get_field_name('signature')),'" value="1">',
         esc_html($this->_lang('signature')),
         '</label></p>';
 
@@ -361,6 +393,23 @@ class ccc_currency_converter_calculator extends WP_Widget
     */
     public function widget($args, $instance)
     {
+        $instance = wp_parse_args(
+            (array) $instance,
+            array(
+                'fm' => 'EUR',
+                'to' => 'USD',
+                'lg' => ccc_return_language_detected(),
+                'tz' => 0,
+                'st' => 'info',
+                'bg' => 'FFFFFF',
+                'lr' => 0,
+                'rd' => 0,
+                'title' => '',
+                'signature' => 1,
+                'size_width' => '100%',
+            )
+        );
+
         wp_register_style(
             'ccc-currency-converter-calculator',
             plugin_dir_url(__FILE__) . 'assets/frontend.css',
@@ -368,8 +417,6 @@ class ccc_currency_converter_calculator extends WP_Widget
             CCC_PLUGIN_VERSION
         );
         wp_enqueue_style('ccc-currency-converter-calculator');
-
-        extract($args);
 
         $lg = ccc_wrap_sanitize_text_field($instance['lg']);
         $tz = ccc_wrap_sanitize_text_field($instance['tz']);
@@ -389,11 +436,11 @@ class ccc_currency_converter_calculator extends WP_Widget
             echo wp_kses_post($args['before_title']) . esc_html($title) . wp_kses_post($args['after_title']);
         }
 
-        $_langs = [
+        $_langs = array(
             'en' => 'en', 'fr' => 'fr', 'ru' => 'ru', 'id' => 'id',
             'it' => 'it', 'de' => 'de', 'hi' => 'hi', 'pt' => 'pt',
             'ja' => 'ja', 'es' => 'es', 'zh' => 'cn'
-        ];
+        );
         $_lg = strstr(get_locale(), '_', true);
         $_lg = isset($_langs[$_lg]) ? $_langs[$_lg] : 'en';
         $language = ccc_widget_language($_lg);

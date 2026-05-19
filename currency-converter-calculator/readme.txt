@@ -1,127 +1,189 @@
 === Currency Converter Calculator ===
 Contributors: falselight
-Tags: currency converter, currency conversion, currency calculator, foreign exchange conversion, forex
-Donate link: http://currencyrate.today/converter-widget
-Tested up to: 6.9
+Tags: currency converter, currency conversion, currency calculator, exchange rates, forex
+Donate link: https://currencyrate.today/converter-widget
 Requires at least: 3.1
+Tested up to: 7.0
 Requires PHP: 5.3
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-❤️‍ Is a magic real-time and easy-to-use with beautiful UI widget. Included 195+ world currencies with popular cryptocurrencies.
+Give visitors a fast, responsive currency converter that keeps them on your site without adding exchange-rate load to WordPress.
 
-== 📌 About ==
-Simple and powerful real-time Currency Converter widget for your website or blog. Included 195+ world currencies with popular cryptocurrencies. Automatically update exchange rates. Multi Language support: English, Русский, Italiano, Français, Español, Deutsch, 中国, Português, 日本語, Bahasa Indonesia, हिन्दी.
+== Description ==
 
-== 🔔 Note ==
-Note: This plugin is compatible with newer versions of WordPress only when used alongside the [Classic Widgets plugin](https://wordpress.org/plugins/classic-widgets/). Please ensure the Classic Widgets plugin is installed and activated for proper functionality.
+Currency Converter Calculator adds a responsive CurrencyRate.Today converter to pages, posts, and classic widget areas.
+Visitors can compare rates in place while your WordPress site stays light.
 
-[DEMO 1](https://currencyrate.today/converter-widget) 👀
-[DEMO 2](https://codepen.io/currencyrate_today/pen/mdBqOxG) 👀
+The converter is powered by CurrencyRate.Today.
+Exchange-rate lookups and rate display happen in the embedded service, so setup stays simple: no API key, no local rate database,
+and no exchange-rate processing load on your WordPress site.
 
-= ⭐️ FEATURES ⭐️ =
-1. 195+ [Currencies](https://currencyrate.today/different-currencies) and Popular [CryptoCurrencies](https://currencyrate.today/other);
-2. You can use the plugin on any page using shortcode;
-3. Does not create a load on the site, all data is processed on a third-party server;
-4. Updates automatically;
-5. Multi languages and SSL support;
-6. Responsive design.
+Features:
 
-== 📌 Installation ==
+* About 190 currencies and assets, including popular cryptocurrencies and metals.
+* Shortcode support for pages, posts, and the Shortcode block.
+* Classic WordPress widget support.
+* Responsive auto-width iframe layout.
+* No API key, local exchange-rate database, or exchange-rate processing load on WordPress.
+* Multiple color themes.
+* Multilingual widget labels.
+* Time zone setting for the displayed update date.
+* SSL-ready service URLs.
+
+Important: this plugin provides a classic `WP_Widget`.
+On modern WordPress installations with the block-based widget screen, install and activate Classic Widgets to manage the widget in Appearance > Widgets.
+Shortcodes work without Classic Widgets.
+
+👀 Demo: [Currency Converter Widget](https://currencyrate.today/converter-widget)
+👀 Product demo: [Currency Converter Calculator](https://yuri.ws/currency-converter-calculator/)
+
+== Installation ==
+
 = From your WordPress dashboard =
-1. Visit "Plugins > Add New"
-2. Search for "Exchange Rates Widget"
-3. Activate Exchange Rates Widget from your Plugins page.
-4. Add widgets on yourdomain.com/wp-admin/widgets.php page.
 
-= 📌 From WordPress.org =
-1. Download Exchange Rates Widget.
-2. Upload the "Exchange Rates Widget" directory to your "/wp-content/plugins/" directory, using your favorite method (ftp, sftp, scp, etc...).
-3. Activate Exchange Rates Widget from your Plugins page.
-4. Add widgets on yourdomain.com/wp-admin/widgets.php page.
+1. Go to Plugins > Add New.
+2. Search for "Currency Converter Calculator".
+3. Install and activate the plugin.
+4. Add the shortcode to a page or post, or add the classic widget under Appearance > Widgets.
 
-= 📌 From WordPress "Add Plugins" =
-1. Download Exchange Rates Widget.
-2. Go to yourdomain.com/wp-admin/plugin-install.php
-3. Press button "Upload Plugin"
-3. Choise "Exchange Rates Widget" zip archive and press button "Install Now".
-4. Add widgets on yourdomain.com/wp-admin/widgets.php page.
+= From WordPress.org =
+
+1. Download Currency Converter Calculator.
+2. Upload the `currency-converter-calculator` folder to `/wp-content/plugins/`.
+3. Activate the plugin from Plugins > Installed Plugins.
+4. Add the shortcode to a page or post, or add the classic widget under Appearance > Widgets.
+
+= Classic widget setup =
+
+1. Install and activate the [Classic Widgets plugin](https://wordpress.org/plugins/classic-widgets/) if your site uses the block-based widget screen.
+2. Go to Appearance > Widgets.
+3. Add "Currency Converter Calculator" to a widget area.
+4. Choose currencies, language, theme, and display options, then save.
 
 == Frequently Asked Questions ==
-= How to install a widget on an arbitrary page? =
-1. You can generate a shortcode manual
-Example:
-[ccc_currency_converter_calculator lg="ru" tz="0" fm="EUR" to="USD" st="info" bg="FFFFFF" lr="1" rd="0"][/ccc_currency_converter_calculator]
-Params:
-lg="ru" - languages, use: en, ru, it, fr, es, de, cn, pt, ja, id, hi
-tz="0" - timezone
-fm="EUR" - currency code from (list of currency codes: http://currencyrate.today/different-currencies)
-to="USD" - currency code to (list of currency codes: http://currencyrate.today/different-currencies)
-st="info" - theme (color scheme) primary, info, danger, warning, gray, success (used bootstrap3 color classes)
-bg="FFFFFF" - background color of iframe, if you use param: rd = "0"
-lr="1" - large widget
-rd="0" - 1 - straight corners, 0 - rounded corners
-2. You can generate a shortcode automatic
-a. Go to yourdomain.com/wp-admin/widgets.php page;
-b. Add widget "Currency Converter Calculator";
-c. Select options, click save;
-d. Copy shortcode from textarea.
-3. Languages
-en - English
-ru - Русский
-it - Italiano
-fr - Français
-es - Español
-de - Deutsch
-cn - 中国
-pt - Português
-ja - 日本語
-id - Bahasa Indonesia
-hi - हिन्दी
+
+= How do I add the converter to a page or post? =
+
+Use the shortcode:
+
+`[ccc_currency_converter_calculator lg="en" tz="0" fm="EUR" to="USD" st="info" bg="FFFFFF" lr="1" rd="0"][/ccc_currency_converter_calculator]`
+
+You can also paste the shortcode into a Shortcode block in the block editor.
+
+= Which shortcode attributes are available? =
+
+* `lg` - language. Supported values: `en`, `ru`, `it`, `fr`, `es`, `de`, `cn`, `pt`, `ja`, `id`, `hi`.
+* `tz` - time zone offset.
+* `fm` - source currency code, for example `EUR`.
+* `to` - target currency code, for example `USD`.
+* `st` - theme. Supported values: `primary`, `info`, `danger`, `warning`, `gray`, `success`.
+* `bg` - iframe background color when rounded corners are enabled, for example `FFFFFF`.
+* `lr` - large widget mode. Use `1` to enable it or `0` to disable it.
+* `rd` - straight corners. Use `1` for straight corners or `0` for rounded corners.
+* `size_width` - iframe width, for example `100%`.
+
+Currency codes are listed at [https://currencyrate.today/different-currencies](https://currencyrate.today/different-currencies).
+
+= Does the plugin use an external service? =
+
+Yes. The plugin embeds an iframe from CurrencyRate.Today.
+
+When a page containing the converter is viewed, the visitor's browser requests `https://currencyrate.today/load-converter`.
+The request includes display settings such as source currency, target currency, language, theme, time zone, background color, and widget size.
+These values come from the shortcode or widget settings.
+
+The plugin does not send WordPress usernames, passwords, admin settings, or private site data to the service.
+
+Service provider: CurrencyRate.Today
+
+* Service website: [https://currencyrate.today/](https://currencyrate.today/)
+* Privacy policy: [https://currencyrate.today/page/privacy](https://currencyrate.today/page/privacy)
+* Disclaimer: [https://currencyrate.today/page/disclaimer](https://currencyrate.today/page/disclaimer)
+
+= How do I add the converter as a widget? =
+
+Install and activate Classic Widgets if needed, then go to Appearance > Widgets and add "Currency Converter Calculator" to a widget area.
+
+The widget settings screen can also generate a shortcode for the same options.
+
+= Does the plugin include a Gutenberg block? =
+
+No. The plugin currently supports shortcodes and classic widgets. In the block editor, use a Shortcode block.
 
 == Screenshots ==
-1. screanshot-1.jpg - Widget settings
-3. screanshot-2.jpg - Gray theme
-4. screanshot-3.jpg - Red theme
-5. screanshot-4.jpg - Yellow theme
-6. screanshot-5.jpg - Blue theme
-7. screanshot-6.jpg - Dark blue theme
-8. screanshot-7.jpg - Green theme
+
+1. screenshot-1.jpg: Widget settings.
+2. screenshot-2.png: Gray theme.
+3. screenshot-3.png: Red theme.
+4. screenshot-4.png: Yellow theme.
+5. screenshot-5.png: Blue theme.
+6. screenshot-6.png: Dark blue theme.
+7. screenshot-7.png: Green theme.
+
+== Upgrade Notice ==
+
+= 1.4.2 =
+WordPress 7 compatibility metadata and readme cleanup. Existing shortcodes and classic widget settings continue to work.
 
 == Changelog ==
-= 1.4.1 =
-* Minor bug fixed
-= 1.4.0 =
-* Fixed security bugs
-* Minor bug fixed
-* Add language POT file
-= 1.3.2 =
-* Fixed security bugs
-* Minor bug fixed
-= 1.3.1 =
-* Add Binance coin
-* Minor bug fixed
-= 1.3.0 =
-* Minor bug fixed
-* Add accessibility
-= 1.2.2 =
-* Important fixed
-* Minor fix
-= 1.2.0 =
-* Minor bug fixed
-= 1.1.0 =
-* Add new languages: Português, 日本語, Bahasa Indonesia, हिन्दी
-= 1.0.2 =
-* Minor bug fixed
-= 1.0.1 =
-* Fix bug (generated shortcode $params with empty value)
-= 1.0.0 =
-* First release
 
-== 🍩 Donations ==
-ℹ️ Official website & 💹 Source: [CurrencyRate](https://currencyrate.today/)
-💰 Your might like it:
-🔵 [Exchange Rates Widget](https://wordpress.org/plugins/exchange-rates-widget/)
-🟢 [Crypto Converter ⚡ Widget](https://wordpress.org/plugins/crypto-converter-widget/)
-🟡 [Cryptocurrency Price Widget](https://wordpress.org/plugins/cryptocurrency-price-widget/)
+= 1.4.2 =
+* Verified WordPress 7 compatibility with Classic Widgets.
+* Improved PHP 8.x runtime safety for shortcode and classic widget handling.
+* Cleaned up plugin metadata, readme wording, and installation instructions.
+
+= 1.4.1 =
+* Minor bug fixed.
+
+= 1.4.0 =
+* Fixed security bugs.
+* Minor bug fixed.
+* Added language POT file.
+
+= 1.3.2 =
+* Fixed security bugs.
+* Minor bug fixed.
+
+= 1.3.1 =
+* Added Binance Coin.
+* Minor bug fixed.
+
+= 1.3.0 =
+* Minor bug fixed.
+* Added accessibility improvements.
+
+= 1.2.2 =
+* Important fix.
+* Minor fix.
+
+= 1.2.0 =
+* Minor bug fixed.
+
+= 1.1.0 =
+* Added new languages: Portuguese, Japanese, Bahasa Indonesia, and Hindi.
+
+= 1.0.2 =
+* Minor bug fixed.
+
+= 1.0.1 =
+* Fixed generated shortcode parameters with empty values.
+
+= 1.0.0 =
+* First release.
+
+== Donations ==
+
+Official website and data source: [CurrencyRate.Today](https://currencyrate.today/)
+
+You may also like these plugins:
+
+* [Crypto Converter ⚡ Widget](https://wordpress.org/plugins/crypto-converter-widget/)
+* [Cryptocurrency Price Widget](https://wordpress.org/plugins/cryptocurrency-price-widget/)
+* [Currency Converter Calculator](https://wordpress.org/plugins/currency-converter-calculator/)
+* [Currency Converter Widget ⚡ PRO](https://wordpress.org/plugins/currency-converter-widget-pro/)
+* [CurrencyRate.Today - Currency Blocks and Widgets](https://wordpress.org/plugins/currencyrate-today-currency-blocks/)
+* [Exchange Rates](https://wordpress.org/plugins/exchange-rates/)
+* [Exchange Rates Widget](https://wordpress.org/plugins/exchange-rates-widget/)
+* [FX Currency Converter](https://wordpress.org/plugins/fx-currency-converter/)
