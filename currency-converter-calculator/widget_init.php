@@ -5,13 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @version 1.4.2
+ * @version 1.4.3
  */
 /*
     Plugin Name: Currency Converter Calculator
     Plugin URI: https://currencyrate.today/converter-widget
     Description: Give visitors a fast, responsive currency converter that keeps them on your site without adding exchange-rate load to WordPress.
-    Version: 1.4.2
+    Version: 1.4.3
     Author: CurrencyRate.today
     Author URI: https://currencyrate.today
     License: GPLv2 or later
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     Domain Path: /languages
     Requires at least: 3.1
     Requires PHP: 5.3
-    Tested up to: 7.0
+    Tested up to: 7.1
 */
 
 /*
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/languages.php';
 if ( ! defined( 'CCC_PLUGIN_VERSION' ) ) {
-    define( 'CCC_PLUGIN_VERSION', '1.4.2' );
+    define( 'CCC_PLUGIN_VERSION', '1.4.3' );
 }
 
 /*
@@ -51,6 +51,36 @@ add_action('admin_enqueue_scripts', function ($hook) {
         array(),
         CCC_PLUGIN_VERSION,
         true
+    );
+    // In the block-based widgets editor the legacy widget form is injected into the DOM
+    // dynamically, after jscolor's DOMContentLoaded auto-init has already run. Initialize
+    // color inputs as soon as the form appears (so the field shows the current color),
+    // and keep a mousedown fallback so the picker opens on the first click.
+    wp_add_inline_script(
+        'ccc_jscolor',
+        '(function () {
+            function cccJscolorInstall() {
+                if (window.jscolor && window.jscolor.installByClassName) {
+                    window.jscolor.installByClassName("jscolor");
+                }
+            }
+            var cccJscolorTimer = null;
+            if (window.MutationObserver) {
+                new MutationObserver(function () {
+                    if (cccJscolorTimer) { return; }
+                    cccJscolorTimer = setTimeout(function () {
+                        cccJscolorTimer = null;
+                        cccJscolorInstall();
+                    }, 300);
+                }).observe(document.body, { childList: true, subtree: true });
+            }
+            document.addEventListener("mousedown", function (e) {
+                var el = e.target;
+                if (!el || !el.classList || !el.classList.contains("jscolor")) { return; }
+                if (!el.jscolor) { cccJscolorInstall(); }
+                if (el.jscolor && el.jscolor.show) { setTimeout(function () { el.jscolor.show(); }, 0); }
+            }, true);
+        })();'
     );
 });
 
@@ -325,8 +355,6 @@ class ccc_currency_converter_calculator extends WP_Widget
             )
         ),
         '</select></label></p>';
-
-        echo '<script>jQuery(document).ready(function() {jscolor.installByClassName("jscolor");});</script>';
 
         echo '<p><label for="',esc_attr($this->get_field_id('bg')),'">',esc_html($this->_lang('background')),':',
         '<input class="jscolor" id="',esc_attr($this->get_field_id('bg')),'" name="',esc_attr($this->get_field_name('bg')),'" value="',esc_attr($bg),'" style="width:100%">',
