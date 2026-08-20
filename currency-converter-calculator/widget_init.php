@@ -5,13 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @version 1.4.3
+ * @version 1.4.4
  */
 /*
     Plugin Name: Currency Converter Calculator
     Plugin URI: https://currencyrate.today/converter-widget
     Description: Give visitors a fast, responsive currency converter that keeps them on your site without adding exchange-rate load to WordPress.
-    Version: 1.4.3
+    Version: 1.4.4
     Author: CurrencyRate.today
     Author URI: https://currencyrate.today
     License: GPLv2 or later
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/languages.php';
 if ( ! defined( 'CCC_PLUGIN_VERSION' ) ) {
-    define( 'CCC_PLUGIN_VERSION', '1.4.3' );
+    define( 'CCC_PLUGIN_VERSION', '1.4.4' );
 }
 
 /*

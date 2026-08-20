@@ -5,7 +5,7 @@ Donate link: https://currencyrate.today/converter-widget
 Requires at least: 3.1
 Tested up to: 7.1
 Requires PHP: 5.3
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -165,10 +165,13 @@ No. The plugin currently supports shortcodes and classic widgets. In the block e
 
 == Upgrade Notice ==
 
-= 1.4.3 =
-Verified compatibility with WordPress 7.1. Fixed the background color picker not initializing in the block-based widgets editor. Existing shortcodes and classic widget settings continue to work.
+= 1.4.4 =
+Synchronized translation template (POT) version metadata with the release. No functional changes.
 
 == Changelog ==
+
+= 1.4.4 =
+* Synchronized translation template (POT) version metadata with the release.
 
 = 1.4.3 =
 * Verified compatibility with WordPress 7.1.

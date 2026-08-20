@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @version 1.4.3
+ * @version 1.4.4
  */
 
 function ccc_widget_language($lg)
